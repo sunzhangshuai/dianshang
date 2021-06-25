@@ -1,0 +1,36 @@
+1. 泛型擦除
+   概念：
+   java语言中，泛型仅仅存在于java源码中，在编译后的字节码文件中，就已经替换为原来的原生类型了，
+   并且在相应的地方插入了强制类型转换的代码，因此，对于运行期的java语言，ArrayList<Integer>
+   和ArrayList<String>是同一个类，这种泛型实现方法，成为泛型擦除。
+   注意事项：
+   a.在泛型类被擦除的时候，之前泛型类的类型参数部分没有指定上限，如<T>会被转译成普通的Object类，
+   如果指定了上限，如<T extends String> ,则类型参数被替换成类型上限。
+   b.类型擦除带来的局限性：利用类型擦除的原理，用反射的手段就绕过了正常开发中，编译器不允许的操作
+   限制。
+2. 类型绑定
+   上边界定义形式：<T extends BoundingType>
+   此处的extends和继承的extends没有任何关系，此处的"extends"表示的是子类型，BoundingType可
+   以是类，也可以是接口
+   a.绑定接口
+   b.绑定类
+   c.绑定多个限定，用&连接，比如：<T extends Fruit&Serializable>
+3. 通配符
+   a.无边界通配符：？
+   b.<?extends>
+   c.<?super>
+4. 面试题
+   a.什么是泛型？好处？
+   泛型是一种参数化类型的机制，是一种编译时类型确认机制，它提供了编译期的类型安全，确保在泛型类型上
+   只能使用正确类型的对象，避免了在运行时出现ClassCastException.
+   b.List<? extends T>和List <? super T>之间有什么区别?
+   只允许接收T和T的子类
+   只允许接收T和T的父类
+   c.你可以把List<String>传递给一个接受List<Object>参数的方法吗？
+   不能
+   d.如何阻止Java中的类型未检查的警告?
+   @SuppressWarnings("unchecked")
+   e.Java中List<Object>和原始类型List之间的区别?
+   原始类型的list可以接收任何类型的，但不能把List<String>传递给List<Object>
+   会对List<Object>做编译期检查
+   f.Java中List<?>和List<Object>之间的区别是什么?
